@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Data visualisation" />
+  <meta name="keywords" content="HTML, CSS" />
+  <meta name="author" content="Ngau Yong Sheng" />
+
+  <title>LAB 8.1 D3 Geo Paths and Projections</title>
+
+  
+  <script src="https://d3js.org/d3.v7.min.js"></script> 
+  
+  <style>
+   
+  </style>
+
+</head>
+
+<body>
+  <h1>Victorian LGA Map</h1>
+  <script>
+    var w = 500;
+    var h = 300;
+    var projection = d3.geoMercator()
+              .center([145, -36.5])
+              .translate([w/2,h/2])
+              .scale(2450);
+  
+    var path = d3.geoPath()
+            .projection(projection);
+            
+    var svg = d3.select("body")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h)
+          .attr("fill", "grey");
+    
+    d3.json("LGA_VIC.json").then(function(json){
+      svg.selectAll("path")
+        .data(json.features)
+        .enter()
+        .append("path")
+        .attr("d", path);
+    });
+  
+  
+    </script>
+
+  <span id="visualisation"></span>
+  <p id ="chart"></p>
+
+
+
+  <a href="LAB 8.1 D3 Geo Paths and Projections.html">lab8.1</a>
+  <a href="LAB 8.2 D3 Choropleths.html">lab8.2</a>
+  
+  
+  <footer style="background-color:#D0D0D0">COS30045 Data Visualisation<br>
+    Ngau Yong Sheng</footer>
+</body>
+</html>
